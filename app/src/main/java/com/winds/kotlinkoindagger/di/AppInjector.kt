@@ -6,8 +6,10 @@ import com.winds.kotlinkoindagger.App
 import com.winds.kotlinkoindagger.mvvm.MainViewModel
 import com.winds.kotlinkoindagger.network.RxSingleSchedulers
 import com.winds.kotlinkoindagger.network.createBasicAuthService
+import com.winds.kotlinkoindagger.network.provideOkhttpClient
 import com.winds.kotlinkoindagger.repository.Repository
 import com.winds.kotlinkoindagger.utils.SharedPrefUtils
+import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
@@ -27,7 +29,8 @@ val appModule = module {
 
 
 val networkModule = module {
-    single { createBasicAuthService() }
+    single { provideOkhttpClient() }
+    single { createBasicAuthService(get()) }
     single { RxSingleSchedulers.DEFAULT }
 }
 

@@ -12,14 +12,20 @@ private fun httpInterceptor() = HttpLoggingInterceptor().apply {
     level = HttpLoggingInterceptor.Level.BODY
 }
 
-private fun basicOkHttpClient() = OkHttpClient.Builder().addInterceptor(httpInterceptor()).build()
 
-
-fun createBasicAuthService(): ApiService {
+fun createBasicAuthService(client: OkHttpClient): ApiService {
     val retrofit = Retrofit.Builder()
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create()).client(basicOkHttpClient())
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(client)
         .baseUrl(BASE_URL)
         .build()
     return retrofit.create(ApiService::class.java);
+}
+
+fun provideOkhttpClient(): OkHttpClient {
+    return OkHttpClient.Builder()
+        .addInterceptor(httpInterceptor())
+        .addInterceptor(HeaderAdder())
+        .build()
 }
