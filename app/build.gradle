@@ -1,0 +1,72 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.winds.kotlinkoindagger"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    def okhttp_version = '3.8.1'
+    def retrofit_version = '2.2.0'
+    def rxjava_version = '2.1.7'
+    def androidArchitectureVersion = "1.1.0"
+
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
+    //json
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    // Networking
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:$androidArchitectureVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$androidArchitectureVersion"
+
+    // Rx
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+
+
+
+    // koin version
+    def koin_version = '2.0.1'
+    // Koin for Android
+    implementation "org.koin:koin-android:$koin_version"
+    // Koin// or Koin for view model features
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
+
+}
